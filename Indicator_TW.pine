@@ -1,0 +1,42 @@
+//@version=5
+indicator("RSI + MACD Signals", overlay=false)
+
+// === INPUTS ===
+rsi_length = input.int(14, "RSI Length")
+rsi_overbought = input.int(70, "RSI Overbought Level")
+rsi_oversold = input.int(30, "RSI Oversold Level")
+
+macd_short = input.int(12, "MACD Short EMA")
+macd_long = input.int(26, "MACD Long EMA")
+macd_signal = input.int(9, "MACD Signal EMA")
+
+// === RSI Calculation ===
+rsi = ta.rsi(close, rsi_length)
+
+// === MACD Calculation ===
+[macd_line, signal_line, _] = ta.macd(close, macd_short, macd_long, macd_signal)
+
+// === RSI Conditions ===
+rsi_buy = rsi < rsi_oversold
+rsi_sell = rsi > rsi_overbought
+
+// === MACD Conditions ===
+macd_cross_up = ta.crossover(macd_line, signal_line)
+macd_cross_down = ta.crossunder(macd_line, signal_line)
+
+// === PLOT RSI ===
+rsi_color = rsi_buy ? color.green : rsi_sell ? color.red : color.blue
+plot(rsi, title="RSI", color=rsi_color)
+hline(rsi_overbought, "Overbought", color=color.red)
+hline(rsi_oversold, "Oversold", color=color.green)
+
+// === PLOT MACD ===
+plot(macd_line, title="MACD Line", color=color.orange)
+plot(signal_line, title="Signal Line", color=color.red)
+
+// === SIGNALS ON CHART ===
+plotshape(rsi_buy, title="RSI Oversold Buy", location=location.bottom, color=color.green, style=shape.triangleup, size=size.small)
+plotshape(rsi_sell, title="RSI Overbought Sell", location=location.top, color=color.red, style=shape.triangledown, size=size.small)
+
+plotshape(macd_cross_up, title="MACD Cross Up", location=location.bottom, color=color.lime, style=shape.arrowup, size=size.tiny)
+plotshape(macd_cross_down, title="MACD Cross Down", location=location.top, color=color.red, style=shape.arrowdown, size=size.tiny)
