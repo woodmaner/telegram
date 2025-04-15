@@ -114,7 +114,6 @@ async def check_indicators():
 async def start(message: types.Message):
     await message.answer("Привет! Я бот для отслеживания RSI и MACD с графиками 📈")
 
-# Запуск планировщика
 async def on_startup(_):
     scheduler.add_job(check_indicators, "interval", minutes=30)  # Проверка каждые 30 минут
     scheduler.start()
