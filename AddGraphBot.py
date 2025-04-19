@@ -8,7 +8,6 @@ from aiogram import Bot, Dispatcher, types
 from aiogram.utils import executor
 from apscheduler.schedulers.asyncio import AsyncIOScheduler
 
-# Telegram API
 TOKEN = "YOUR_TELEGRAM_BOT_TOKEN"
 CHAT_ID = "YOUR_CHAT_ID"
 
