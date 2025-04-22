@@ -18,7 +18,6 @@ TIMEFRAMES = {
     "1d": "1d"
 }
 
-# RSI & MACD параметры
 RSI_PERIOD = 14
 OVERSOLD = 30
 OVERBOUGHT = 70
