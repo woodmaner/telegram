@@ -25,7 +25,6 @@ SHORT_EMA = 12
 LONG_EMA = 26
 SIGNAL_EMA = 9
 
-# Инициализация бота
 bot = Bot(token=TOKEN)
 dp = Dispatcher(bot)
 scheduler = AsyncIOScheduler()
